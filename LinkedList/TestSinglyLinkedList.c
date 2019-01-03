@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "TestRunner.h"
-#include "LinkedList.h"
+#include "SinglyLinkedList.h"
 
 int test_sll_create_node() {
 	sll_node_t* node = sll_create_node(1);
@@ -145,7 +145,7 @@ int test_sll_get_node_count() {
 	return 0;
 }
 
-int test_destroy_all_nodes() {
+int test_sll_destroy_all_nodes() {
 	sll_node_t* list = NULL;
 	sll_node_t* node1 = sll_create_node(2);
 	sll_node_t* node2 = sll_create_node(3);	
@@ -156,7 +156,7 @@ int test_destroy_all_nodes() {
 	sll_append_node(&list, node3);
 	sll_append_node(&list, node4);
 	
-	destroy_all_nodes(&list);
+	sll_destroy_all_nodes(&list);
 	_assert(list == NULL);
 
 	return 0;
@@ -171,7 +171,7 @@ int all_tests() {
 	_verify(test_sll_remove_node);
 	_verify(test_sll_get_node_at);
 	_verify(test_sll_get_node_count);
-	_verify(test_destroy_all_nodes);
+	_verify(test_sll_destroy_all_nodes);
 	return 0;
 }
 

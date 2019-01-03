@@ -1,4 +1,4 @@
-#include "LinkedList.h"
+#include "SinglyLinkedList.h"
 
 sll_node_t* sll_create_node(sll_element_type_t new_data) {
 	sll_node_t* node = malloc(sizeof(sll_node_t));
@@ -50,18 +50,18 @@ void sll_insert_node_before(sll_node_t** head, sll_node_t* current, sll_node_t* 
 
 
 sll_node_t* sll_remove_node(sll_node_t** head, sll_node_t* removed) {
-	sll_node_t* before = *head;
-	if (before == removed) {
-		*head = before->next_node;
-		before->next_node = NULL;
+	sll_node_t* current = *head;
+	if (current == removed) {
+		*head = current->next_node;
+		current->next_node = NULL;
 		return removed;
 	}
-	while (before->next_node != removed && before->next_node != NULL) {
-		before = before->next_node;
+	while (current->next_node != removed && current->next_node != NULL) {
+		current = current->next_node;
 	}
-	if (before != NULL) {
-		removed = before->next_node;
-		before->next_node = removed->next_node;
+	if (current != NULL) {
+		removed = current->next_node;
+		current->next_node = removed->next_node;
 		removed->next_node = NULL;
 	}
 	return removed;
@@ -90,7 +90,7 @@ int sll_get_node_count(sll_node_t* head) {
 }
 
 
-void destroy_all_nodes(sll_node_t** head) {
+void sll_destroy_all_nodes(sll_node_t** head) {
 	sll_node_t* current = *head;
 
 	while (current != NULL) {

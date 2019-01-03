@@ -1,5 +1,5 @@
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+#ifndef SINGLYLINKEDLIST_H
+#define SINGLYLINKEDLIST_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,5 +20,5 @@ void sll_insert_node_before(sll_node_t** head, sll_node_t* current, sll_node_t* 
 sll_node_t* sll_remove_node(sll_node_t** head, sll_node_t* removed);
 sll_node_t* sll_get_node_at(sll_node_t* head, int position);
 int sll_get_node_count(sll_node_t* head);
-void destroy_all_nodes(sll_node_t** head);
+void sll_destroy_all_nodes(sll_node_t** head);
 #endif
