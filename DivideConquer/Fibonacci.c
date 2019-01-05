@@ -26,12 +26,14 @@ fb_matrix_t fb_power_matrix(fb_matrix_t base, int power) {
 		return base;
 	}
 
+	fb_matrix_t fb_powered = fb_power_matrix(base, power/2);
+	fb_matrix_t result = fb_multiply_matrix(fb_powered, fb_powered);
+
 	if (power % 2 == 1) {
-		fb_matrix_t fb_powered = fb_power_matrix(base, (power-1)/2);
-		return fb_multiply_matrix(fb_multiply_matrix(fb_powered, fb_powered), base);
+		result = fb_multiply_matrix(result, base);
 	}
 
-	return fb_multiply_matrix(fb_power_matrix(base, power/2), fb_power_matrix(base, power/2));
+	return result;
 }
 
 ulong_t fb_divide_conquer(int n) {

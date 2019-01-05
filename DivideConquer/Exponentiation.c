@@ -5,10 +5,10 @@ ulong_t exponentiation(int base, int exponent) {
 		return base;
 	}
 
-	
+	ulong_t one = exponentiation(base, exponent/2);
+	ulong_t result = one * one;
 	if (exponent % 2 == 1) {
-		return exponentiation(base, (exponent-1)/2) * exponentiation(base, (exponent-1)/2) * base;
-	} 
-
-	return exponentiation(base, exponent/2) * exponentiation(base, exponent/2);
+		result = result * base;
+	}
+	return result;
 }

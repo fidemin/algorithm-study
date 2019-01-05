@@ -38,9 +38,10 @@ int test_fibonacci() {
 	int n = 42;
 	ulong_t expect = 267914296;
 
+	/*
 	ulong_t result1 = fb_normal(n);
-	//printf("%lu\n", result);
 	_assert(expect == result1);
+	*/
 
 	ulong_t result2 = fb_divide_conquer(n);
 	_assert(expect == result2);
