@@ -14,6 +14,7 @@ typedef struct _sbt_node {
 
 sbt_node_t* sbt_create_node(sbt_element_type_t data);
 void sbt_destroy_node(sbt_node_t* node);
+void sbt_destroy_tree(sbt_node_t* node);
 void sbt_preorder_traversal(sbt_node_t* node);
 void sbt_inorder_traversal(sbt_node_t* node);
 void sbt_postorder_traversal(sbt_node_t* node);

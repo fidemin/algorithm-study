@@ -7,7 +7,7 @@ int test_sbt_create_node() {
 	_assert(node->data == 'A');
 	_assert(node->left_child == NULL);
 	_assert(node->right_child == NULL);
-	sbt_destroy_node(node);
+	sbt_destroy_tree(node);
 	return 0;
 }
 
@@ -34,6 +34,8 @@ int test_sbt_traversals() {
 	sbt_inorder_traversal(root);
 	printf("[PRINT] Postorder Traversal\n");
 	sbt_postorder_traversal(root);
+
+	sbt_destroy_tree(root);
 	return 0;
 
 }
@@ -41,7 +43,6 @@ int test_sbt_traversals() {
 int all_tests() {
 	_verify(test_sbt_create_node);
 	_verify(test_sbt_traversals);
-	//_verify(test_sample);
 	return 0;
 }
 

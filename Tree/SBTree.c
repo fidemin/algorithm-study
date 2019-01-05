@@ -14,6 +14,19 @@ void sbt_destroy_node(sbt_node_t* node) {
 	free(node);
 }
 
+void sbt_destroy_tree(sbt_node_t* node) {
+
+	if (node->left_child != NULL) {
+		sbt_destroy_tree(node->left_child);	
+	}
+
+	if (node->right_child != NULL) {
+		sbt_destroy_tree(node->right_child);
+	}
+
+	sbt_destroy_node(node);
+}
+
 void sbt_preorder_traversal_sub(sbt_node_t* node) {
 	if (node == NULL) {
 		printf("[WARNING] null node cannot be printed");
