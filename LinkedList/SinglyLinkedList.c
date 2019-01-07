@@ -76,6 +76,73 @@ sll_node_t* sll_get_node_at(sll_node_t* head, int idx) {
 	return current;
 }
 
+sll_node_t* sll_linear_search(sll_node_t* head, int data) {
+	sll_node_t* found = head;
+	while (found != NULL) {
+		if (found->data == data) {
+			return found;
+		}
+		found = found->next_node;
+	}
+	return found;
+}
+
+sll_node_t* sll_move_to_front(sll_node_t** head, int data) {
+	sll_node_t* found = *head;
+	sll_node_t* previous = NULL;
+
+	while (found != NULL) {
+		if (found->data == data) {
+			// if found node is first node
+			if (previous == NULL) {
+				return found;
+			}
+			previous->next_node = found->next_node;
+			found->next_node = *head;
+			*head = found;
+			return found;
+		}
+		previous = found;
+		found = found->next_node;
+	}
+
+	return found;
+}
+
+sll_node_t* sll_transpose(sll_node_t** head, int data) {
+	sll_node_t* found = *head;
+	sll_node_t* previous = NULL;
+	sll_node_t* pre_previous = NULL;
+
+	while (found != NULL) {
+		if (found->data == data) {
+			// if found node is first node
+			if (previous == NULL) {
+				return found;
+			}
+
+			// if found node is second node
+			if (pre_previous == NULL) {
+				previous->next_node = found->next_node;
+				found->next_node = previous;
+				*head = found;
+				return found;
+			}	
+
+			// normal case
+			previous->next_node = found->next_node;
+			pre_previous->next_node = found;
+			found->next_node = previous;
+
+			return found;
+		}
+		
+		pre_previous = previous;
+		previous = found;
+		found = found->next_node;
+	}
+	return found;
+}
 
 int sll_get_node_count(sll_node_t* head) {
 	sll_node_t* current = head;
