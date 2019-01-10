@@ -48,6 +48,7 @@ void alg_add_vertex(alg_graph_t* graph, alg_vertex_t* vertex) {
 	alg_vertex_t* prev = NULL;
 	if (current == NULL) {
 		graph->vertices = vertex;
+		vertex->idx = 0;
 		graph->size = 1;
 		return;
 	}
@@ -62,12 +63,14 @@ void alg_add_vertex(alg_graph_t* graph, alg_vertex_t* vertex) {
 	}
 
 	prev->next = vertex; 
+	vertex->idx = graph->size;
 	graph->size++;
 }
 
-alg_adjacent_t* alg_create_adjacent(alg_vertex_t* v, int weight) {
+alg_adjacent_t* alg_create_adjacent(alg_vertex_t* from, alg_vertex_t* v, int weight) {
 	alg_adjacent_t* adjacent = (alg_adjacent_t*) malloc(sizeof(alg_adjacent_t));
 	adjacent->next = NULL;
+	adjacent->from = from;
 	adjacent->vertex = v;
 	adjacent->weight = weight;
 	return adjacent;
@@ -81,7 +84,7 @@ void alg_add_edge(alg_vertex_t* v1, alg_vertex_t* v2, int weight) {
 	}
 
 	if (v1->adjacents == NULL) {
-		v1->adjacents = alg_create_adjacent(v2, weight);
+		v1->adjacents = alg_create_adjacent(v1, v2, weight);
 		return;
 	}
 	
@@ -96,7 +99,12 @@ void alg_add_edge(alg_vertex_t* v1, alg_vertex_t* v2, int weight) {
 		prev = current;
 		current = current->next;
 	}
-	prev->next = alg_create_adjacent(v2, weight);
+	prev->next = alg_create_adjacent(v1, v2, weight);
+}
+
+void alg_add_edge_bidirect(alg_vertex_t* v1, alg_vertex_t* v2, int weight) {
+	alg_add_edge(v1, v2, weight);
+	alg_add_edge(v2, v1, weight);
 }
 
 void alg_print_graph(alg_graph_t* graph) {

@@ -25,23 +25,27 @@ int test_alg_add_vertex() {
 	alg_vertex_t* vertex1 = alg_create_vertex(1);
 	alg_add_vertex(graph, vertex1);
 	_assert(vertex1 == graph->vertices);
+	_assert(0 == vertex1->idx);
 	_assert(1 == graph->size);
 
 	alg_vertex_t* vertex2 = alg_create_vertex(2);
 	alg_add_vertex(graph, vertex2);
 	_assert(vertex1 == graph->vertices);
 	_assert(vertex2 == graph->vertices->next);
+	_assert(1 == vertex2->idx);
 	_assert(NULL == graph->vertices->next->next);
 	_assert(2 == graph->size);
 
 	alg_add_vertex(graph, vertex2);
 	_assert(2 == graph->size);
+	_assert(1 == vertex2->idx);
 
 	alg_vertex_t* vertex3 = alg_create_vertex(3);
 	alg_add_vertex(graph, vertex3);
 	_assert(vertex1 == graph->vertices);
 	_assert(vertex2 == graph->vertices->next);
 	_assert(vertex3 == graph->vertices->next->next);
+	_assert(2 == vertex3->idx);
 	_assert(NULL == graph->vertices->next->next->next);
 	_assert(3 == graph->size);
 
@@ -65,13 +69,38 @@ int test_alg_add_edge() {
 
 	alg_add_edge(vertex1, vertex3, 3);
 	_assert(vertex3 == graph->vertices->adjacents->vertex);	
+	_assert(vertex1 == graph->vertices->adjacents->from);
 	alg_add_edge(vertex1, vertex2, 4);
 	_assert(vertex2 == graph->vertices->adjacents->next->vertex);	
+	_assert(vertex1 == graph->vertices->adjacents->next->from);
 
 
 	// exception cases
 	alg_add_edge(vertex1, vertex2, 5);
 	alg_add_edge(vertex2, vertex2, 5);
+
+	alg_destroy_graph(graph);
+	return 0;
+}
+
+int test_alg_add_edge_bidirect() {
+	alg_graph_t* graph = alg_create_graph();
+	alg_vertex_t* vertex1 = alg_create_vertex(1);
+	alg_add_vertex(graph, vertex1);
+	alg_vertex_t* vertex2 = alg_create_vertex(2);
+	alg_add_vertex(graph, vertex2);
+	alg_vertex_t* vertex3 = alg_create_vertex(3);
+	alg_add_vertex(graph, vertex3);
+	alg_vertex_t* vertex4 = alg_create_vertex(4);
+	alg_add_vertex(graph, vertex4);
+
+	alg_add_edge_bidirect(vertex1, vertex3, 3);
+	_assert(vertex3 == graph->vertices->adjacents->vertex);	
+	_assert(vertex1 == graph->vertices->next->next->adjacents->vertex);	
+
+	alg_add_edge_bidirect(vertex1, vertex2, 4);
+	_assert(vertex2 == graph->vertices->adjacents->next->vertex);
+	_assert(vertex1 == graph->vertices->next->adjacents->vertex);
 
 	alg_destroy_graph(graph);
 	return 0;
@@ -235,6 +264,7 @@ int all_tests() {
 	_verify(test_alg_create_vertex);
 	_verify(test_alg_add_vertex);
 	_verify(test_alg_add_edge);
+	_verify(test_alg_add_edge_bidirect);
 	_verify(test_alg_print_graph);
 	_verify(test_alg_reset_visited);
 	_verify(test_alg_dfs_graph);

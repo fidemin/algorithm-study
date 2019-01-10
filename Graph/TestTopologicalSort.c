@@ -4,7 +4,7 @@
 #include "SinglyLinkedList.h"
 #include "TopologicalSort.h"
 
-int test_alg_topological_sort() {
+int test_ts_sort() {
 	alg_graph_t* graph = alg_create_graph();
 	alg_vertex_t* vertex1 = alg_create_vertex(1);
 	alg_add_vertex(graph, vertex1);
@@ -66,7 +66,7 @@ int test_alg_topological_sort() {
 }
 
 int all_tests() {
-	_verify(test_alg_topological_sort);
+	_verify(test_ts_sort);
 	return 0;
 }
 
