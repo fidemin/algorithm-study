@@ -1,31 +1,30 @@
 #!/usr/local/bin/bash
 
+function check_success() {
+	if [ $? -eq 0 ]; then
+		echo [TEST] $1 test success
+		echo
+	else
+		echo "[TEST] $1 test failed"
+		exit 1;
+	fi	
+}
+
 clear
 
 echo "[TEST] ALGraph"
 gcc TestALGraph.c ALGraph.c LinkedListQueue.c && ./a.out
 
-if [ $? -eq 0 ]; then
-    echo [TEST] ALGraph test success
-	echo
-else
-	echo "[TEST] ALGraph test failed"
-	exit 1;
-fi
+check_success "ALGraph"
 
 echo
 echo "[TEST] TopologicalSort"
 gcc TestTopologicalSort.c ALGraph.c LinkedListQueue.c SinglyLinkedList.c TopologicalSort.c && ./a.out
 
-if [ $? -eq 0 ]; then
-    echo [TEST] TopologicalSort test success
-	echo
-else
-	echo "[TEST] TopologicalSort test failed"
-	exit 1;
-fi
-
+check_success "Topological Sort"
 
 echo
 echo "[TEST] MST"
-gcc TestMST.c PriorityQueue.c ALGraph.c LinkedListQueue.c MST.c && ./a.out
+gcc TestMST.c PriorityQueue.c ALGraph.c LinkedListQueue.c MST.c DisjointSet.c && ./a.out
+
+check_success "MST"
