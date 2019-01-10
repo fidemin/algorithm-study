@@ -84,3 +84,7 @@ pq_node_t pq_dequeue(pq_queue_t* queue) {
 	}
 	return returned;
 }
+
+int pq_is_empty(pq_queue_t* queue) {
+	return queue->used == 0;
+} 

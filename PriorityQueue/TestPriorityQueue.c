@@ -93,10 +93,20 @@ int test_pq_dequeue() {
 	_assert(161 == last.priority);
 	_assert(1 == (int) last.data);
 
-	
+	return 0;
+}
 
+int test_pq_is_empty() {
+	pq_queue_t* queue = pq_create_queue(100);
+	_assert(1 == pq_is_empty(queue));
 
+	pq_enqueue(queue, 161, (void*) 1);
+	_assert(0 == pq_is_empty(queue));
 
+	pq_node_t node = pq_dequeue(queue);
+	_assert(1 == pq_is_empty(queue));
+
+	pq_destroy_queue(queue);
 	return 0;
 }
 
@@ -104,6 +114,7 @@ int all_tests() {
 	_verify(test_pq_create_queue);
 	_verify(test_pq_enqueue);
 	_verify(test_pq_dequeue);
+	_verify(test_pq_is_empty);
 	return 0;
 }
 
