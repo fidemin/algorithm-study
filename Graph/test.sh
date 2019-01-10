@@ -28,4 +28,4 @@ fi
 
 echo
 echo "[TEST] MST"
-gcc TestMST.c ALGraph.c LinkedListQueue.c && ./a.out
+gcc TestMST.c PriorityQueue.c ALGraph.c LinkedListQueue.c MST.c && ./a.out

@@ -31,6 +31,7 @@ alg_graph_t* alg_create_graph();
 void alg_destroy_graph(alg_graph_t* graph);
 alg_vertex_t* alg_create_vertex(int data);
 void alg_destroy_vertex(alg_vertex_t* vertex);
+alg_adjacent_t* alg_create_adjacent(alg_vertex_t* from, alg_vertex_t* v, int weight);
 void alg_add_vertex(alg_graph_t* graph, alg_vertex_t* vertex);
 void alg_add_edge(alg_vertex_t* v1, alg_vertex_t* v2, int weight);
 void alg_add_edge_bidirect(alg_vertex_t* v1, alg_vertex_t* v2, int weight);

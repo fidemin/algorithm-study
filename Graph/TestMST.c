@@ -41,9 +41,17 @@ int test_mst_prim() {
 	alg_print_graph(graph);
 
 	alg_graph_t* mst_graph = alg_create_graph();
-	//mts_prim(graph, vertex2, mst_graph); 
+	mst_prim(graph, vertex2, mst_graph); 
+
+	_assert(graph->vertices->data == mst_graph->vertices->data);
+	_assert(graph->vertices->next->data == mst_graph->vertices->next->data);
+
+
+	alg_print_graph(mst_graph);
 
 	alg_destroy_graph(graph);
+	alg_destroy_graph(mst_graph);
+
 
 	return 0;
 }
