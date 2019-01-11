@@ -28,3 +28,9 @@ echo "[TEST] MST"
 gcc TestMST.c PriorityQueue.c ALGraph.c LinkedListQueue.c MST.c DisjointSet.c && ./a.out
 
 check_success "MST"
+
+echo
+echo "[TEST] Shortest Path"
+gcc TestShortestPath.c PriorityQueue.c ALGraph.c LinkedListQueue.c ShortestPath.c DisjointSet.c && ./a.out
+
+check_success "Shortest Path"
