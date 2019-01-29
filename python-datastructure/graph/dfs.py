@@ -1,21 +1,19 @@
 
 from collections import namedtuple
 
-Edge = namedtuple('Edge', ('vertex'))
-
-def dfs(adj, visited, here):
-    print(here)
+def dfs(adj, visited, result, here):
+    result.append(here)
     visited[here] = True
     
     for there in adj[here]:
         if not visited[there]:
-            dfs(adj, visited, there)
+            dfs(adj, visited, result, there)
 
 
-def dfs_all(adj, visited, size):
+def dfs_all(adj, visited, result, size):
     for here in range(size):
         if not visited[here]:
-            dfs(adj, visited, here)
+            dfs(adj, visited, result, here)
 
 
 if __name__ == "__main__":
@@ -34,4 +32,6 @@ if __name__ == "__main__":
     adj[5].append(3)
 
     visited = [False] * size
-    dfs_all(adj, visited, size)
+    result = []
+    dfs_all(adj, visited, result, size)
+    print(result)
