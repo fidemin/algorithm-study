@@ -3,7 +3,7 @@ def is_permutation(s1, s2):
     if len(s1) != len(s2):
         return False
 
-    counter = {} 
+    counter = {}
     for c in s1:
         counter[c] = counter.get(c, 0) + 1
 
@@ -16,3 +16,7 @@ def is_permutation(s1, s2):
         counter[c] = count - 1
 
     return True
+
+if __name__ == "__main__":
+    assert(True == is_permutation("abcde", "baced"))
+    assert(False == is_permutation("abcd ", "baced"))
