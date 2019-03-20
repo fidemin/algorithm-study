@@ -16,9 +16,25 @@ class Card(object):
     def __init__(self, suit, number):
         self._suit = suit
         self._number = number
+        self._open = False
+
+    @property
+    def open(self):
+        return self._open
+
+    @open.setter
+    def open(self, open_):
+        self._open = open_
 
     def __repr__(self):
-        return "%s(suit=%s,number=%d)" % (self.__class__.__name__, self._suit, self._number)
+        return "%s(suit=%s,number=%d,open=%s)" % (
+            self.__class__.__name__,
+            self._suit,
+            self._number,
+            self._open)
+
+    def __eq__(self, other):
+        return (self._suit == other._suit) and (self._number == other._number)
 
 
 class Deck(object):
@@ -43,3 +59,24 @@ class Deck(object):
 
     def _suffle(self):
         random.shuffle(self._cards)
+
+
+class Hand(object):
+    def __init__(self):
+        self._cards = []
+
+    def receive(self, card):
+        self._cards.append(card)
+
+    def show(self):
+        open_cards = []
+        closed_cards = []
+
+        for card in self._cards:
+            if card.open:
+                open_cards.append(card)
+            else:
+                closed_cards.append(card)
+
+        return open_cards, closed_cards
+
