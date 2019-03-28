@@ -2,6 +2,10 @@
 from random import randint
 from collections import deque, namedtuple
 
+
+NodePair = namedtuple('NodePair', ('first', 'second'))
+
+
 class Node(object):
     def __init__(self, key, priority=None):
         if priority:
@@ -35,8 +39,6 @@ class Node(object):
         if self.right is not None:
             self.size += self.right.size
 
-
-NodePair = namedtuple('NodePair', ('first', 'second'))
 
 def split(root, key):
     '''
@@ -146,6 +148,7 @@ def print_by_layer(root):
 
         print_node(node.right)
 
+
 def print_preorder(root):
     print_node(root)
 
@@ -156,6 +159,34 @@ def print_preorder(root):
         print_preorder(root.right)
 
 
+def kth(root, k):
+    if root is None:
+        return None
+
+    l_size = 0
+
+    if root.left is not None:
+        l_size = root.left.size
+
+    if k <= l_size:
+        return kth(root.left, k)
+    elif k == l_size + 1:
+        return root
+    return kth(root.right, k - l_size - 1)
+
+
+def count_less_than(root, key):
+    if root is None:
+        return 0
+
+    if root.key >= key:
+        return count_less_than(root.left, key)
+
+    ls = root.left.size if root.left else 0
+
+    return ls + 1 + count_less_than(root.right, key)
+
+
 if __name__ == "__main__":
     root = Node(5)
     root = insert(root, Node(3))
@@ -163,8 +194,11 @@ if __name__ == "__main__":
     root = insert(root, Node(4))
     root = insert(root, Node(10))
     root = insert(root, Node(12))
-    print_by_layer(root)
-    print("\n------\n")
-    root = erase(root, 3)
-    print_by_layer(root)
+    #print_by_layer(root)
+    #print("\n------\n")
+    #root = erase(root, 3)
+    #print_by_layer(root)
     #print_preorder(root)
+
+    print(kth(root, 4))
+    print(count_less_than(root, 6))
