@@ -59,6 +59,10 @@ dkms.conf
 
 #python
 *.pyc
+.python-version
 
 # testcase
 tsp_testcase.txt
+
+# pycharm
+.idea
