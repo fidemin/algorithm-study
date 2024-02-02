@@ -1,5 +1,5 @@
 import pytest
-from subset import all_subsets
+from subset import all_subsets, all_subset_sums
 
 
 def _assert_subset(subset1, subset2):
@@ -28,3 +28,20 @@ def _assert_subset(subset1, subset2):
 def test_all_subsets(test_input, expected):
     actual = all_subsets(test_input)
     _assert_subset(actual, expected)
+
+
+@pytest.mark.parametrize('test_input,expected', [
+    ([], [0]),
+    ([1], [0, 1]),
+    ([2, 5, 7], [0, 2, 5, 7, 7, 9, 12, 14]),
+    ([1, 2, 3, 4], [0, 1, 2, 3, 3, 4, 5, 6, 4, 5, 6, 7, 7, 8, 9, 10])
+])
+def test_all_subsets_sum(test_input, expected):
+    actual = all_subset_sums(test_input)
+    actual.sort()
+    expected.sort()
+
+    assert len(actual) == len(expected)
+    for i in range(len(actual)):
+        assert actual[i] == expected[i]
+
