@@ -1,5 +1,5 @@
 import pytest
-from subset import all_subsets, all_subset_sums
+from subset import all_subsets, all_subset_sums, unique_subsets
 
 
 def _assert_subset(subset1, subset2):
@@ -45,3 +45,16 @@ def test_all_subsets_sum(test_input, expected):
     for i in range(len(actual)):
         assert actual[i] == expected[i]
 
+
+@pytest.mark.parametrize('test_input,expected', [
+    ([], [[]]),
+    ([1], [[], [1]]),
+    ([2, 5, 7], [[], [2], [5], [2, 5], [7], [2, 7], [5, 7], [2, 5, 7]]),
+    ([2, 5, 5, 7], [[], [2], [5], [2, 5], [5, 5], [2, 5, 5], [7], [2, 7], [5, 7], [2, 5, 7], [5, 5, 7], [2, 5, 5, 7]]),
+    ([1, 2, 3, 4], [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3], [4], [1, 4], [2, 4], [1, 2, 4], [3, 4],
+                    [1, 3, 4], [2, 3, 4], [1, 2, 3, 4]])
+])
+def test_unique_subsets(test_input, expected):
+    actual = unique_subsets(test_input)
+
+    _assert_subset(actual, expected)

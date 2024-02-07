@@ -17,3 +17,19 @@ def all_subset_sums(nums):
         ret.extend(this_set)
 
     return ret
+
+
+def unique_subsets(nums):
+    ret = set([()])
+    for num in nums:
+        this_set = [tuple(sorted(list(s)+[num])) for s in ret]
+        for s in this_set:
+            ret.add(s)
+
+    return [list(s) for s in ret]
+
+
+
+
+
+
