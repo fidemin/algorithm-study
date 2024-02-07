@@ -20,13 +20,31 @@ def all_subset_sums(nums):
 
 
 def unique_subsets(nums):
-    ret = set([()])
+    ret = {()}
     for num in nums:
         this_set = [tuple(sorted(list(s)+[num])) for s in ret]
         for s in this_set:
             ret.add(s)
 
     return [list(s) for s in ret]
+
+
+def subset_with_target_sum(nums, target):
+    subset = {()}
+    ret = set()
+    for num in nums:
+        this_set = []
+        for s in subset:
+            new_set = tuple(sorted(list(s) + [num]))
+            this_set.append(new_set)
+            if sum(new_set) == target:
+                ret.add(new_set)
+
+        for s in this_set:
+            subset.add(s)
+
+    return [list(s) for s in ret]
+
 
 
 
